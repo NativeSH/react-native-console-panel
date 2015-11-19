@@ -11,5 +11,8 @@
   },
   "keywords": ["react-native","console","debug panel"],
   "author": "sospartan@gmail.com",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "react-native": "^0.14.2"
+  }
 }
