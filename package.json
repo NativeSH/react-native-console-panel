@@ -1,0 +1,15 @@
+{
+  "name": "react-native-console-panel",
+  "version": "1.0.0",
+  "description": "react native component for display console messages. ",
+  "main": "index.js",
+  "directories": {
+    "example": "example"
+  },
+  "scripts": {
+
+  },
+  "keywords": ["react-native","console","debug panel"],
+  "author": "sospartan@gmail.com",
+  "license": "ISC"
+}
