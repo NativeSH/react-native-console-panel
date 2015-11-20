@@ -1,15 +1,17 @@
 # React Native Console Panel  
-A Simple debug panel component to view console message right inside the app ,this will be helpful during your react native development.
+A Simple debug panel component to view console message right inside the app.  
+This will be helpful during your react native development.
 This is a pure react native component ,you can use it in both ios and android .
 
 **Xcode / Android Studio is not a must for React Native app development.**  
-RN developers can simplify tool chain with this component when coding javascript only . You don't have to open Xcode , android studio or Chrome dev console for viewing js console message. A javascript editor and a emulator/device is all you need.
+RN developers can simplify tool chain with this component when coding javascript only.  
+You don't have to open any of Xcode , Android Studio or Chrome dev console for viewing js console message. A javascript editor and a emulator/device are all you need.
 
 ## Usage
-### install from npm :  
+### Install from npm :  
 `npm install --save react-native-console-panel`
 
-### then in your app's entry component:  
+### Integrate into your app:  
 
 ```javascript
 //import the component
@@ -34,7 +36,7 @@ render:function(){
 Now, when you use 'console' to print something , it will be like this:  
 ![screenshot](path/or/url/to.jpg )
 
-### avaiable props:
+### Avaiable props:
 
 ```javascript
 	propTypes:{
@@ -46,8 +48,8 @@ Now, when you use 'console' to print something , it will be like this:
 ## TO-DOs  
 * Count unread log when panel is closing
 * 'clear' button
-* system infomation shapshot
-* better looking?
+* System infomation shapshot
+* Better looking?
 * ...
 
-**I'm new to Javascript .So any pull requests is welcomed!**
+**I'm new to Javascript .So any pull request is welcomed!**
