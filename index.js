@@ -165,7 +165,7 @@ var component = React.createClass({
     },
     componentDidMount:function(){
         consolePanelStack.bindUpdateListener(()=>{
-            this.setState({dataSource:consolePanelStack.data.slice(0,this.props.limit)});
+            this.setState({dataSource:consolePanelStack.getData(this.props.limit)});
         });
         console.log(Object.keys(this.panel.props.style));
         this.panelStyle.left = this.panel.props.style[1].left;
@@ -246,6 +246,10 @@ var component = React.createClass({
         return formatToString(this.data);
     }
 
+    ConsoleStack.prototype.getData = function(limit){
+        return this.data.slice(0,limit);
+    }
+
     ConsoleStack.prototype.bindUpdateListener = function(callback){
         this.listeners.push(callback);
     }
@@ -258,7 +262,7 @@ var component = React.createClass({
         }else if(obj instanceof Date){
             return 'Date('+obj.toISOString()+')';
         }else if(Array.isArray(obj)){
-           return 'Array('+obj.length+')[' + obj.map((elem,i)=>{formatToString(elem)}).join(',')+']';
+           return 'Array('+obj.length+')[' + obj.map((elem)=>formatToString(elem))+']';
         }else if(obj.toString){
             return 'object{'+obj.toString()+'}';
         }else{
