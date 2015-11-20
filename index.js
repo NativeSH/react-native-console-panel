@@ -115,6 +115,7 @@ var component = React.createClass({
         return {
             dataSource:consolePanelStack.data,
             isOpen:this.props.open,
+            unreadCount:0,
         };
     },
     _pickStyle:(level)=>{
@@ -165,7 +166,10 @@ var component = React.createClass({
     },
     componentDidMount:function(){
         consolePanelStack.bindUpdateListener(()=>{
-            this.setState({dataSource:consolePanelStack.getData(this.props.limit)});
+            this.setState({
+                dataSource:consolePanelStack.getData(this.props.limit),
+                unreadCount:consolePanelStack.getUnreadCount()
+            });
         });
         console.log(Object.keys(this.panel.props.style));
         this.panelStyle.left = this.panel.props.style[1].left;
@@ -181,15 +185,23 @@ var component = React.createClass({
                 ref={(ref)=>this.panel=ref}
                 {...this.props} style={[styles.container,this.props.style]} >
                 <View style={styles.bar} >
-                    <Text style={styles.barText}>console</Text>
+                    <Text style={styles.barText}>console{this.state.unreadCount>0?'('+this.state.unreadCount+')':null}</Text>
                 </View>
                 <View style={styles.content}>
                 {this.state.isOpen?content:null}
                 </View>
                 <View style={styles.touchOverlay} {...this._panResponder.panHandlers}/>
                 <View style={styles.btn}>
-                    <TouchableWithoutFeedback  onPress={()=>this.setState({isOpen:!this.state.isOpen})}>
-                        <Text style={styles.btnText}>{this.state.isOpen?'close':'open'}</Text>
+                    <TouchableWithoutFeedback  onPress={()=>{
+                        consolePanelStack.enableUnreadCount(this.state.isOpen);
+                        consolePanelStack.resetUnreadCount();
+                        this.setState({
+                            isOpen:!this.state.isOpen,
+                            unreadCount:0
+                        });
+                    }
+                    }>
+                        <Text style={styles.btnText}>{this.state.isOpen?'close':'open '}</Text>
                     </TouchableWithoutFeedback>
                 </View>
             </View>
@@ -205,6 +217,8 @@ var component = React.createClass({
         this.data = [];
         this.listeners = [];
         this.waiting = false;
+        this.unreadEnabled = false;
+        this.unreadCount = 0;
     }
 
     function timestamp(){
@@ -240,6 +254,9 @@ var component = React.createClass({
             }
         },500);
         this.waiting = true;
+        if(this.unreadEnabled){
+            this.unreadCount++;
+        }
     }
 
     ConsoleStack.prototype.toString = function(){
@@ -252,6 +269,18 @@ var component = React.createClass({
 
     ConsoleStack.prototype.bindUpdateListener = function(callback){
         this.listeners.push(callback);
+    }
+
+    ConsoleStack.prototype.getUnreadCount = function(){
+        return this.unreadCount;
+    }
+
+    ConsoleStack.prototype.enableUnreadCount = function(enable){
+        this.unreadEnabled = enable;
+    }
+
+    ConsoleStack.prototype.resetUnreadCount = function(){
+        this.unreadCount = 0;
     }
 
 

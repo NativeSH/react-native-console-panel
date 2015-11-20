@@ -46,7 +46,7 @@ Now, when you use 'console' to print something , it will be like this:
 ```
 
 ## TO-DOs  
-* Count unread log when panel is closing
+* <del>Count unread log when panel is closing</del>
 * 'clear' button
 * System infomation shapshot
 * Better looking?
