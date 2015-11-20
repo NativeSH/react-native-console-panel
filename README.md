@@ -34,7 +34,7 @@ render:function(){
       );
 ```
 Now, when you use 'console' to print something , it will be like this:  
-![screenshot](path/or/url/to.jpg )
+![screenshot](https://github.com/sospartan/react-native-console-panel/raw/master/demo.gif )
 
 ### Avaiable props:
 
