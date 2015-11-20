@@ -12,7 +12,7 @@
   },
   "keywords": ["react-component","react-native","ios","android","console","debug panel"],
   "author": "sospartan@gmail.com",
-  "license": "ISC",
+  "license": "GPLv2",
   "dependencies": {
     "react-native": "^0.14.2"
   }
