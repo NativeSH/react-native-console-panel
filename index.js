@@ -67,6 +67,14 @@ var styles = StyleSheet.create({
     },
     error:{
         color:'tomato',
+    },
+    touchOverlay:{
+        position:'absolute',
+        top:0,
+        bottom:0,
+        left:0,
+        right:0,
+        backgroundColor:'transparent'
     }
 });
 
@@ -132,7 +140,6 @@ var component = React.createClass({
             onPanResponderRelease: this._onPanResponderEnd,
             onPanResponderTerminate: this._onPanResponderEnd,
         });
-
     },
     componentDidMount:function(){
         consolePanelStack.bindUpdateListener(()=>{
@@ -151,16 +158,17 @@ var component = React.createClass({
             <View
                 ref={(ref)=>this.panel=ref}
                 {...this.props} style={[styles.container,this.props.style]} >
-                <View style={styles.bar} {...this._panResponder.panHandlers}>
+                <View style={styles.bar} >
                     <Text style={styles.barText}>console</Text>
                 </View>
                 <View style={styles.content}>
                 {this.state.isOpen?content:null}
                 </View>
+                <View style={styles.touchOverlay} {...this._panResponder.panHandlers}/>
                 <View style={styles.btn}>
-                <TouchableWithoutFeedback  onPress={()=>this.setState({isOpen:!this.state.isOpen})}>
-                    <Text style={styles.btnText}>{this.state.isOpen?'close':'open'}</Text>
-                </TouchableWithoutFeedback>
+                    <TouchableWithoutFeedback  onPress={()=>this.setState({isOpen:!this.state.isOpen})}>
+                        <Text style={styles.btnText}>{this.state.isOpen?'close':'open'}</Text>
+                    </TouchableWithoutFeedback>
                 </View>
             </View>
         );
