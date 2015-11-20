@@ -40,8 +40,8 @@ Now, when you use 'console' to print something , it will be like this:
 
 ```javascript
 	propTypes:{
-        limit:React.PropTypes.number,
-        open:React.PropTypes.bool,
+        limit:React.PropTypes.number,//message limit number
+        open:React.PropTypes.bool,//is open when mounted
     }
 ```
 
