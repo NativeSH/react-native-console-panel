@@ -13,7 +13,8 @@ var {
   TouchableHighlight,
 } = React;
 
-var ConsolePanel = require('react-native-console-panel').Panel;
+var ConsolePanel = require('react-native-console-panel').displayWhenDev();
+
 
 var consolepanel = React.createClass({
   componentWillMount:()=>{
@@ -31,11 +32,8 @@ var consolepanel = React.createClass({
       case 2:
         console.error('Button Hit!');
         break;
-      case 3:
-        console.info('Button Hit!');
-        break;
       default:
-        console.debug('Button Hit!');
+        console.info('Button Hit!');
         break;
     }
   },
@@ -56,7 +54,7 @@ var consolepanel = React.createClass({
             Hit me!
           </Text>
         </TouchableHighlight>
-        <ConsolePanel limit={10} style={{left:20,top:20}}/>
+        {ConsolePanel}
       </View>
     );
   }

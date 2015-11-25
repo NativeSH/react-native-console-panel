@@ -15,7 +15,7 @@ You don't have to open any of Xcode , Android Studio or Chrome dev console for v
 
 ```javascript
 //import the component
-var ConsolePanel = require('react-native-console-panel').Panel;
+var ConsolePanel = require('react-native-console-panel').displayWhenDev();
 ...
 render:function(){
 	return (
@@ -29,10 +29,17 @@ render:function(){
         
         	//Panel will float above your content
         	//use top,left to control panel's position 
-        	<ConsolePanel limit={10} style={{left:20,top:20}}/>
+        	{ConsolePanel}
       </View>
       );
 ```
+* `displayWhenDev()` will return the component or null accroding `__DEV__` flag
+* `displayIgnoreDevVariable()` ignore `__DEV__` variable
+
+### Yellowbox
+The react-native add a 'Yellowbox' in **v0.16(not release yet)** for showing warn/error messages.**This module disable that by default**.
+If you want to keep both yellowbox  and console ,you should import like this `require('react-native-console-panel/keep-yellowbox')`.
+
 Now, when you use 'console' to print something , it will be like this:  
 ![screenshot](https://github.com/sospartan/react-native-console-panel/raw/master/demo.gif )
 
