@@ -189,9 +189,9 @@ var ConsolePanel = React.createClass({
     render:function(){
         var content = [];
         if(this.state.isOpen) {
-            for (let row of this.state.dataSource) {
+            this.state.dataSource.forEach((row)=>{
                 content.push(<Text style={[this._pickStyle(row.level),styles.contentText]}>{row.text}</Text>);
-            }
+            });
             if (this.state.dataSource.length < 3) {
                 content.push(<Text
                     style={[styles.log,styles.contentText]}>{String('\n'.repeat(3 - this.state.dataSource.length))}</Text>);
@@ -270,12 +270,11 @@ var _setup = function(_global,_keepYellowBox) {
                 return;
             }
             this.timeout = setTimeout(()=> {
-
-                for (let callback of this.listeners) {
+                this.listeners.forEach((callback)=>{
                     callback();
                     clearTimeout(this.timeout);
                     this.waiting = false;
-                }
+                });
             }, 500);
             this.waiting = true;
         }
