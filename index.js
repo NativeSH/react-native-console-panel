@@ -273,7 +273,7 @@ var _setup = function(_global,_keepYellowBox) {
         }
 
         ConsoleStack.prototype.add = function (type, obj) {
-            var raw = timestamp() + '(' + type.substr(0, 1).toUpperCase() + '):' + formatToString(obj);
+            var raw = timestamp() + '(' + type.substr(0, 1).toUpperCase() + '):' + limitString(formatToString(obj),2,150);
             if (this.data.unshift({level: type, text: raw}) > this.limit) {
                 this.data.pop;
             }
@@ -307,6 +307,18 @@ var _setup = function(_global,_keepYellowBox) {
             this.unreadCount = 0;
         }
 
+        function limitString(input,lineLimit,charLimit){
+            let changed = input.length>charLimit;
+            input = input.substr(0,charLimit);
+            let lines = input.split('\n');
+            if(lines.length>lineLimit){
+                changed = true;
+                lines.splice(lineLimit,lines.length-lineLimit);
+            }
+            let newContent = lines.join('\n');
+            return newContent+(chasnged?'...':'');
+        }
+
 
         function formatToString(obj) {
 
@@ -336,6 +348,7 @@ var _setup = function(_global,_keepYellowBox) {
                     consoleStack.add(name, arguments[0]);
                     f.apply(console, arguments)
                 };
+                console['_'+name] = f;
             };
             proxy(log,'log');
             proxy(warn,'warn');
