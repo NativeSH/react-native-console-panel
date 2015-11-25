@@ -146,6 +146,11 @@ var ConsolePanel = React.createClass({
     _onPanResponderMove: function(evt,gestureState){
         this.panel.setNativeProps({style:{left:this.panelStyle.left+gestureState.dx,top:this.panelStyle.top+gestureState.dy}});
     },
+    _resetPosition:function(){
+        this.panelStyle.left = 0;
+        this.panelStyle.top = 0;
+        this.panel.setNativeProps({style:{left:0,top:0}});
+    },
     _onPanResponderEnd:function(evt,gestureState){
         this.panelStyle.left += gestureState.dx;
         this.panelStyle.top += gestureState.dy;
@@ -177,6 +182,9 @@ var ConsolePanel = React.createClass({
     },
     _clearAll:function(){
         consolePanelStack.clear();
+        if(this.panelStyle.left<0||this.panelStyle.top<0){
+            this._resetPosition();
+        }
     },
     render:function(){
         var content = [];
@@ -316,7 +324,7 @@ var _setup = function(_global,_keepYellowBox) {
                 lines.splice(lineLimit,lines.length-lineLimit);
             }
             let newContent = lines.join('\n');
-            return newContent+(chasnged?'...':'');
+            return newContent+(changed?'...':'');
         }
 
 
