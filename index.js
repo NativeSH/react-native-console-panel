@@ -244,15 +244,16 @@ var _setup = function(_global,_keepYellowBox) {
             this.unreadCount = 0;
         }
 
+        function formatter(len){
+          return (input)=> {
+              var str = String(input);
+              var strLen = str.length;
+              return '0'.repeat(len - strLen) + input;
+          }
+        }
+
         function timestamp() {
             var d = new Date();
-            var formatter = (len)=> {
-                return (input)=> {
-                    var str = String(input);
-                    var strLen = str.length;
-                    return '0'.repeat(len - strLen) + input;
-                }
-            };
             let f2 = formatter(2);
             return f2(d.getHours())
                 + ':' + f2(d.getMinutes())
@@ -348,20 +349,16 @@ var _setup = function(_global,_keepYellowBox) {
             if (keepYellow === false ) {
                 console.disableYellowBox = true;
             }
-            const {log,error,info,warn} = console;
 
-            const proxy = (f,name)=>{
-                console[name] = function(){
-                    consoleStack.add(name, arguments[0]);
-                    f.apply(console, arguments)
-                };
-                console['_'+name] = f;
-            };
-            proxy(log,'log');
-            proxy(warn,'warn');
-            proxy(error,'error');
-            proxy(info,'info');
-
+            const methods = ['log','error','warn','info'];
+            methods.forEach((method)=>{
+              var f = console[method];
+              console['_'+method] = f;
+              console[method] = function(){
+                consoleStack.add(v, arguments[0]);
+                f.apply(console, arguments)
+              }
+            });
         }
 
         if (!global.consolePanelStack) {
