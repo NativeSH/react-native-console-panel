@@ -1,6 +1,6 @@
 {
   "name": "react-native-console-panel",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "react native component for display console messages. ",
   "main": "index.js",
   "directories": {
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/sospartan/react-native-console-panel"
+    "url": "https://github.com/NativeSH/react-native-console-panel"
   },
   "keywords": ["react-component","react-native","ios","android","console","debug panel"],
   "author": "sospartan@gmail.com",
