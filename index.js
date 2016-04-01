@@ -84,7 +84,7 @@ var styles = StyleSheet.create({
         color:'white'
     },
     warn:{
-        color:'peachPuff',
+        color:'#ffdab9',
     },
     error:{
         color:'tomato',
