@@ -355,7 +355,7 @@ var _setup = function(_global,_keepYellowBox) {
               var f = console[method];
               console['_'+method] = f;
               console[method] = function(){
-                consoleStack.add(v, arguments[0]);
+                consoleStack.add(method, arguments[0]);
                 f.apply(console, arguments)
               }
             });
