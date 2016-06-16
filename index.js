@@ -354,8 +354,8 @@ var _setup = function(_global,_keepYellowBox) {
             methods.forEach((method)=>{
               var f = console[method];
               console['_'+method] = f;
-              console[method] = function(v){
-                consoleStack.add(v, arguments[0]);
+              console[method] = function(){
+                consoleStack.add(method, arguments[0]);
                 f.apply(console, arguments)
               }
             });
