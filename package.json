@@ -1,6 +1,6 @@
 {
   "name": "react-native-console-panel",
-  "version": "0.0.7",
+  "version": "0.0.9",
   "description": "react native component for display console messages. ",
   "main": "index.js",
   "directories": {
