@@ -26,25 +26,27 @@
 
 'use strict';
 
-var React = require("react-native");
+var React = require("react");
+var ReactNative = require("react-native");
 var {
     View,
     Text,
     StyleSheet,
     PanResponder,
-    TouchableWithoutFeedback
-    } = React;
+    TouchableWithoutFeedback,
+    Dimensions
+    } = ReactNative;
 
-const PANEL_BACKGROUND = 'rgba(51,72,94,0.6)';
-const PANEL_BACKGROUND_SELECTED = 'rgba(51,72,94,0.9)';
+const PANEL_BACKGROUND = 'rgba(51,72,94,0.7)';
+const PANEL_BACKGROUND_SELECTED = 'rgba(51,72,94,0.95)';
 
 
 var styles = StyleSheet.create({
     container:{
-        top: 10,
-        left: 10,
+        top: 23,
+        left: 0,
         right: 0,
-        width:200,
+        width: Dimensions.get('window').width,
         position:'absolute',
         backgroundColor:PANEL_BACKGROUND,
     },
@@ -75,7 +77,7 @@ var styles = StyleSheet.create({
         padding:2,
     },
     contentText:{
-        fontSize:10
+        fontSize:11
     },
     log:{
         color:'lime',
@@ -189,11 +191,11 @@ var ConsolePanel = React.createClass({
     render:function(){
         var content = [];
         if(this.state.isOpen) {
-            this.state.dataSource.forEach((row)=>{
-                content.push(<Text style={[this._pickStyle(row.level),styles.contentText]}>{row.text}</Text>);
+            this.state.dataSource.forEach((row,i)=>{
+                content.push(<Text key={i} style={[this._pickStyle(row.level),styles.contentText]}>{row.text}</Text>);
             });
             if (this.state.dataSource.length < 3) {
-                content.push(<Text
+                content.push(<Text key={-1}
                     style={[styles.log,styles.contentText]}>{String('\n'.repeat(3 - this.state.dataSource.length))}</Text>);
             }
         }
@@ -211,7 +213,7 @@ var ConsolePanel = React.createClass({
                 <View style={styles.touchOverlay} {...this._panResponder.panHandlers}/>
                 {this.state.isOpen?<View style={styles.bar}>
                     <TouchableWithoutFeedback onPress={this._clearAll}>
-                        <Text style={styles.bottomBarBtnText}>clear</Text>
+                        <View><Text style={styles.bottomBarBtnText}>clear</Text></View>
                     </TouchableWithoutFeedback>
                 </View>:null}
                 <View style={styles.btn}>
@@ -224,7 +226,7 @@ var ConsolePanel = React.createClass({
                         });
                     }
                     }>
-                        <Text style={styles.btnText}>{this.state.isOpen?'close':' open'}</Text>
+                        <View><Text style={styles.btnText}>{this.state.isOpen?'close':' open'}</Text></View>
                     </TouchableWithoutFeedback>
                 </View>
             </View>
@@ -374,7 +376,7 @@ var _setup = function(_global,_keepYellowBox) {
 
 module.exports = {
     keepYellowbox:()=>{
-        _setup(this,true);
+        _setup(window,true);
         return {
             Panel:ConsolePanel,
             displayWhenDev:()=>__DEV__?<ConsolePanel/>:null,
@@ -383,11 +385,11 @@ module.exports = {
     },
     Panel:ConsolePanel,
     displayWhenDev:()=>{
-        _setup(this,false);
+        _setup(window,false);
         return __DEV__?<ConsolePanel/>:null;
     },
     displayIgnoreDevVariable:()=>{
-        _setup(this,false);
+        _setup(window,false);
         return <ConsolePanel/>
     },
 };
