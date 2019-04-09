@@ -10,10 +10,19 @@
     "type": "git",
     "url": "https://github.com/NativeSH/react-native-console-panel"
   },
-  "keywords": ["react-component","react-native","ios","android","console","debug panel"],
+  "keywords": [
+    "react-component",
+    "react-native",
+    "ios",
+    "android",
+    "console",
+    "debug panel"
+  ],
   "author": "sospartan@gmail.com",
   "license": "GPLv2",
   "dependencies": {
-
+    "create-react-class": "^15.6.3",
+    "prop-types": "^15.7.2",
+    "react-native": "^0.59.4"
   }
 }
