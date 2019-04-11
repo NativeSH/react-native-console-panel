@@ -28,6 +28,8 @@
 
 var React = require("react");
 var ReactNative = require("react-native");
+var createReactClass = require('create-react-class');
+var PropTypes = require('prop-types');
 var {
     View,
     Text,
@@ -101,10 +103,10 @@ var styles = StyleSheet.create({
     }
 });
 
-var ConsolePanel = React.createClass({
+var ConsolePanel = createReactClass({
     propTypes:{
-        limit:React.PropTypes.number,
-        open:React.PropTypes.bool,
+        limit:PropTypes.number,
+        open:PropTypes.bool,
     },
     getDefaultProps:()=>{
         return {
@@ -179,8 +181,8 @@ var ConsolePanel = React.createClass({
                 unreadCount:consolePanelStack.getUnreadCount()
             });
         });
-        this.panelStyle.left = this.panel.props.style[1]?this.panel.props.style[1].left:10;
-        this.panelStyle.top = this.panel.props.style[1]?this.panel.props.style[1].top:10;
+        this.panelStyle.left = (this.panel.props && this.panel.props.style[1]) ? this.panel.props.style[1].left : 10;
+        this.panelStyle.top = (this.panel.props && this.panel.props.style[1]) ? this.panel.props.style[1].top : 10;
     },
     _clearAll:function(){
         consolePanelStack.clear();
